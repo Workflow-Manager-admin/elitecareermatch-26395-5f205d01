@@ -206,6 +206,22 @@ function JobMatchPanel({ userProfile }) {
           <div className="job-exp">
             <span className="job-label">Experience:</span> {job.experience}+
           </div>
+          <div className="job-apply-row">
+            <div className="luxury-tooltip-btn-wrapper">
+              <button
+                className="btn luxury-apply-btn"
+                type="button"
+                // Dummy apply handler; in real scenario, you would adapt this for actual application
+                onClick={() => window.alert('Your application has been submitted!')}
+                tabIndex={0}
+              >
+                Apply
+              </button>
+              <div className="luxury-tooltip">
+                are you sure to apply to this job?
+              </div>
+            </div>
+          </div>
         </div>
       ))}
       {matchedJobs.length === 0 && <div className="no-jobs luxury-desc">No matching jobs found. Update your profile and try again.</div>}
