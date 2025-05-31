@@ -271,6 +271,15 @@ function App() {
   const [page, setPage] = useState('home');
   const [userProfile, setUserProfile] = useState(initialProfile);
 
+  // Checks if the minimal required profile fields are filled (name and title, non-empty)
+  function isProfileComplete(profile) {
+    return (
+      profile &&
+      typeof profile.name === 'string' && profile.name.trim().length > 0 &&
+      typeof profile.title === 'string' && profile.title.trim().length > 0
+    );
+  }
+
   return (
     <div className="app luxury-app">
       <Navbar currentPage={page} setCurrentPage={setPage} />
@@ -289,7 +298,19 @@ function App() {
           {page === 'jobs' && (
             <div className="section-flex">
               <div className="section-block">
-                <JobMatchPanel userProfile={userProfile} />
+                {isProfileComplete(userProfile) ? (
+                  <JobMatchPanel userProfile={userProfile} />
+                ) : (
+                  <div className="luxury-panel" style={{textAlign: "center", maxWidth: 420}}>
+                    <h2 className="panel-title">Personalized Job Matches</h2>
+                    <div className="luxury-desc" style={{padding: "18px 0"}}>
+                      Please provide your profile details (Name and Desired Title) in the Profile section to view personalized job matches.
+                    </div>
+                    <button className="btn btn-large" onClick={() => setPage('profile')}>
+                      Go to Profile
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}
